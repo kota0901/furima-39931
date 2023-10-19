@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module Furima39931
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.active_storage.variant_processor = :mini_magick
     config.load_defaults 7.0
 
     # Configuration for the application, engines, and railties goes here.
