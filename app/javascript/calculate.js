@@ -1,4 +1,4 @@
-function caliculate (){
+function calculate (){
   const priceInput = document.getElementById('item-price');
   const addTaxPrice = document.getElementById('add-tax-price');
   const addProfit = document.getElementById('profit');
@@ -6,8 +6,8 @@ function caliculate (){
       const price = parseInt(priceInput.value);
       const taxPrice = Math.floor(price * 0.1);
       addTaxPrice.textContent = taxPrice;
-      addProfit.textContent = price-taxPrice;
+      addProfit.textContent = price - taxPrice;
   });
-}
+};
 
-window.addEventListener('load', caliculate);
+window.addEventListener('turbo:load', calculate);
