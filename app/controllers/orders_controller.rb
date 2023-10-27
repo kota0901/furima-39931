@@ -6,16 +6,15 @@ class OrdersController < ApplicationController
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @order_address = Address.new
     @order_form = OrderForm.new
   end
 
   def create
-    @order_address = OrderForm.new(order_params)
+    @order_form = OrderForm.new(order_params)
   
-    if @order_address.valid?
+    if @order_form.valid?
       pay_item
-      @order_address.save
+      @order_form.save
       redirect_to root_path
     else
       render :index, status: :unprocessable_entity
@@ -33,6 +32,23 @@ class OrdersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
+
+  def check_owner
+    if (@item.user_id == current_user.id || !@item.order.nil? )
+      redirect_to root_path
+    end
+  end
+
+
+
+  def pay_item
+   Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+   Payjp::Charge.create(
+     amount: @item.price,  # 商品の値段
+     card: order_params[:token],    # カードトークン
+     currency: 'jpy'                 # 通貨の種類（日本円）
+   )
+ end
 
   def redirect_if_sold
     return unless user_signed_in? && Order.exists?(item_id: @item.id)
