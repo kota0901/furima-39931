@@ -1,14 +1,12 @@
-function calculate (){
-  const priceInput = document.getElementById('item-price');
-  const addTaxPrice = document.getElementById('add-tax-price');
-  const addProfit = document.getElementById('profit');
-  if (!priceInput){ return false;}
-  priceInput.addEventListener('input', () => {
-      const price = parseInt(priceInput.value);
-      const taxPrice = Math.floor(price * 0.1);
-      addTaxPrice.textContent = taxPrice;
-      addProfit.textContent = price - taxPrice;
-  });
-};
+window.addEventListener('turbo:load', () => {
+  const priceInput = document.getElementById("item-price");
+  const addTaxDom = document.getElementById("add-tax-price");
+  const totalInput = document.getElementById("profit");
+  const tax = 0.1
+  priceInput.addEventListener("input", () => {
+    const inputValue = priceInput.value
+    addTaxDom.innerHTML = Math.floor(inputValue * tax)
+    totalInput.innerHTML = Math.floor(inputValue - addTaxDom.innerHTML )
 
-window.addEventListener('turbo:load', calculate);
+  })
+});

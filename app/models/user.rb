@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :birthday, presence: true
 
   has_many :items
+  has_many :order_histories
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end

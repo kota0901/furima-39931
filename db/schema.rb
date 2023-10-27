@@ -40,12 +40,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_26_111603) do
   end
 
   create_table "addresses", charset: "utf8", force: :cascade do |t|
-    t.string "post_code"
-    t.integer "region_id"
-    t.string "municipalities"
-    t.string "banchi"
+    t.string "post_code", null: false
+    t.integer "region_id", null: false
+    t.string "city", null: false
+    t.string "banchi", null: false
     t.string "building_name"
-    t.string "number"
+    t.string "number", null: false
     t.bigint "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
