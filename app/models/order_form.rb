@@ -1,4 +1,4 @@
-class OrderAddress
+class OrderForm
   include ActiveModel::Model
 
   attr_accessor :user_id, :item_id, :post_code, :region_id, :city, :banchi, :building_name, :number, :token

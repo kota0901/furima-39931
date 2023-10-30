@@ -5,17 +5,16 @@ class OrdersController < ApplicationController
   before_action :redirect_if_sold, only: [:new, :create]
 
   def index
-    
-    @order_address = OrderAddress.new
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    @order_form = OrderForm.new
   end
 
   def create
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @order_address = OrderAddress.new(order_params)
+    @order_form = OrderForm.new(order_params)
   
-    if @order_address.valid?
+    if @order_form.valid?
       pay_item
-      @order_address.save
+      @order_form.save
       redirect_to root_path
     else
       render :index, status: :unprocessable_entity
@@ -25,7 +24,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order_address).permit(:post_code, :region_id, :city, :banchi, :building_name, :number).merge(
+    params.require(:order_form).permit(:post_code, :region_id, :city, :banchi, :building_name, :number).merge(
       user_id: current_user.id, item_id: params[:item_id], token: params[:token]
     )
   end
@@ -51,4 +50,15 @@ class OrdersController < ApplicationController
    )
  end
 
+  def redirect_if_sold
+    return unless user_signed_in? && Order.exists?(item_id: @item.id)
+
+    redirect_to root_path
+  end
+
+  def redirect_if_owner
+    return unless user_signed_in? && current_user == @item.user
+
+    redirect_to root_path
+  end
 end
