@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
   before_action :set_item, only: [:index, :new, :create]
-  before_action :redirect_if_owner, only: [:new, :create]
-  before_action :redirect_if_sold, only: [:new, :create]
+  before_action :check_owner, only: [:new, :create]
 
   def index
     
@@ -35,12 +34,10 @@ class OrdersController < ApplicationController
   end
 
   def check_owner
-    if (@item.user_id == current_user.id || !@item.order.nil? )
+    if (@item.user_id == current_user.id || @item.order.present? )
       redirect_to root_path
     end
   end
-
-
 
   def pay_item
    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
