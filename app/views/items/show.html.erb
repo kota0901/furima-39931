@@ -50,23 +50,23 @@
         </tr>
         <tr>
           <th class="detail-item">カテゴリー</th>
-          <td class="detail-value"><%= Category.find(@item.category_id).name %></td>
+          <td class="detail-value"><%= @item.category.name %></td>
         </tr>
         <tr>
           <th class="detail-item">商品の状態</th>
-          <td class="detail-value"><%= Condition.find(@item.condition_id).name %></td>
+          <td class="detail-value"><%= @item.condition.name %></td>
         </tr>
         <tr>
           <th class="detail-item">配送料の負担</th>
-          <td class="detail-value"><%= DeliveryFeePayment.find(@item.delivery_fee_payment_id).name %></td>
+          <td class="detail-value"><%= @item.delivery_fee_payment.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送元の地域</th>
-          <td class="detail-value"><%= Region.find(@item.region_id).name %></td>
+          <td class="detail-value"><%= @item.region.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送日の目安</th>
-          <td class="detail-value"><%= Deadline.find(@item.deadline_id).name %></td>
+          <td class="detail-value"><%= @item.deadline.name %></td>
         </tr>
       </tbody>
     </table>
