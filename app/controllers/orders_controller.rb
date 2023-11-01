@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :check_owner, only: [:new, :create]
 
   def index
-    
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_address = OrderAddress.new
   end
 
