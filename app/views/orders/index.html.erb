@@ -28,11 +28,9 @@
         ¥<%= @item.price %>
       </p>
     </div>
-    <%# /支払額の表示 %>
 
     <%= form_with model: @order_address, url: item_orders_path(@item.id), data: { turbo: false},id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
 
-    <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
         クレジットカード情報入力
@@ -67,9 +65,7 @@
         <div id="cvc-form" class="input-default"></div>
       </div>
     </div>
-    <%# /カード情報の入力 %>
     
-    <%# 配送先の入力 %>
     <div class='shipping-address-form'>
       <h1 class='info-input-haedline'>
         配送先入力
@@ -117,7 +113,6 @@
         <%= f.text_field :number, class:"input-default", id:"phone-number", placeholder:"例）09012345678",maxlength:"11"%>
       </div>
     </div>
-    <%# /配送先の入力 %>
     <div class='buy-btn'>
       <%= f.submit "購入" ,class:"buy-red-btn", id:"button" %>
     </div>
